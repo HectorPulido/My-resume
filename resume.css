@@ -19,10 +19,11 @@ hr {
 a
 {
     color: black;
+    text-decoration-line: none;
 }
 b
 {
-    color: red;
+    color: red !important;
 }
 a:hover
 {
