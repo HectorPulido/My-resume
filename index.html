@@ -24,7 +24,7 @@
             <section class="row">
                 <section class="col-sm" id="name">
                     <h1>Hector Pulido </h1>
-                    <p><b>Tech lead, Backend, Machine learning, Gamedev, Blockchain</b> </p>
+                    <p><b>Tech lead, Backend developer, Machine learning, Gamedev, Blockchain</b> </p>
                 </section>
             </section>
         </section>
@@ -36,9 +36,15 @@
                             <h2><i class="fas fa-star"></i> Achievements and Experience</h2>
                         </div>
                         <div>
+                            <h3><i class="fas fa-briefcase"></i> Backend developer at Platzi</h3>
+                            <p class="mb-0"><small>Web based software development with PYTHON / DJANGO</small></p>
+                            <p><b>August 2020 - Now </b></p>
+                        </div>
+                        <div>
                             <h3><i class="fas fa-briefcase"></i> Senior Software Engineer at Finsocial</h3>
                             <p class="mb-0"><small>Team management, and fast iteration in Fintech software</small></p>
-                            <p class="mb-0"><small>Web based software build with PHP / MYSQL / PYTHON / AWS</small></p>
+                            <p class="mb-0"><small>Web based software development with PHP / MYSQL /
+                                    AWS</small></p>
                             <p class="mb-0"><small>From Junior to Senior in 1 Year</small></p>
                             <p><b>February 2019 - July 2020 </b></p>
                         </div>
@@ -49,9 +55,9 @@
                             <p><b>January 2017 - February 2019 </b></p>
                         </div>
                         <div>
-                            <h3><i class="fas fa-paint-brush"></i> 10.000+ Youtube Subscribers</h3>
+                            <h3><i class="fas fa-paint-brush"></i> 13.000+ Youtube Subscribers</h3>
                             <p class="mb-0"><small>AI, Gamedev, Software an other topics</small></p>
-                            <p><b>January 2018 - July 2020</b></p>
+                            <p><b>January 2018 - Now</b></p>
                         </div>
                         <div>
                             <h3><i class="fas fa-graduation-cap"></i> Mechatronic Engineering, Universidad Autónoma Del
@@ -88,7 +94,8 @@
                                         class="fas fa-key"></i> Decentralized Twitter like app (Python, Javascript) </a>
                             </h3>
                             <p>Twitter-Like web app using <b>Decentralized technologies</b> in this case a
-                                <b>Blockchain</b>.</p>
+                                <b>Blockchain</b>.
+                            </p>
                         </div>
                         <div>
                             <h3><a href="https://github.com/HectorPulido/Amazon-QLDB-Login-Example"><i
@@ -120,7 +127,8 @@
                             <h3><a href="https://github.com/HectorPulido/Resume-generator"><i class="fas fa-server"></i>
                                     Resume generator (Python, flask)</a> </h3>
                             <p>Resume (Like this) generator web app made with <b>flask</b> deployed to Heroku with
-                                <b>docker</b></p>
+                                <b>docker</b>
+                            </p>
                         </div>
                     </section>
                 </section>
@@ -161,10 +169,8 @@
                         <div class="mb-3">
                             <h2><i class="fas fa-globe-europe"></i> Languages </h2>
                         </div>
-                        <h4>Spanish</h4>
-                        <p><b>Native</b></p>
-                        <h4>English</h4>
-                        <p><b>Advanced (B2)</b></p>
+                        <h4>Spanish <b>(Native)</b></h4>
+                        <h4>English <b>(Advanced - B2)</b></h4>
                         <hr>
                     </section>
 
@@ -182,12 +188,13 @@
             </section>
         </section>
     </div>
-    <footer class="mastfoot mt-5">
+    <footer class="mastfoot mt-3">
         <div class="container">
-            <!-- <p>if you have problems watching this version please check the <a class="dontdelete"
-                    href="https://hectorpulido.github.io/My-resume/"><b>web version</b></a>.</p> -->
+            <hr>
+            <p class="deleteOnLink">If you have problems watching this version please check the <a class="dontdelete"
+                    href="https://hectorpulido.github.io/My-resume/"><b>web version</b></a>.</p>
 
-            <p>Download the <a href="pdf_version.pdf"><b>pdf version</b></a>.</p>
+            <p class="dontDeleteOnLink">Download the <a href="pdf_version.pdf"><b>pdf version</b></a>.</p>
 
         </div>
     </footer>
@@ -195,20 +202,29 @@
 
 <script>
     // Remove links for the pdf version
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     let a_list = document.getElementsByTagName("a");
-    //     let arr = Array.from(a_list);
-    //     arr.forEach((a) => {
-    //         if (a.classList.contains("dontdelete")) {
-    //             return;
-    //         }
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('link');
 
-    //         let html_a = a.outerHTML;
-    //         let t = a.innerHTML;
-    //         let p = a.parentElement;
-    //         p.innerHTML = p.innerHTML.replace(html_a, t);
-    //     });
-    // });
+        if (myParam == undefined) {
+            document.getElementsByClassName('deleteOnLink')[0].innerHTML = ''
+            return;
+        }
+        document.getElementsByClassName('dontDeleteOnLink')[0].innerHTML = ''
+
+        let a_list = document.getElementsByTagName("a");
+        let arr = Array.from(a_list);
+        arr.forEach((a) => {
+            if (a.classList.contains("dontdelete")) {
+                return;
+            }
+
+            let html_a = a.outerHTML;
+            let t = a.innerHTML;
+            let p = a.parentElement;
+            p.innerHTML = p.innerHTML.replace(html_a, t);
+        });
+    });
 </script>
 
 </html>
