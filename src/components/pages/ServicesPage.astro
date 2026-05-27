@@ -1,0 +1,74 @@
+---
+import type { Lang } from "@/i18n/ui";
+import { t } from "@/i18n/ui";
+import { getCollection } from "astro:content";
+import ServiceCard from "@/components/ServiceCard.astro";
+import ContactCta from "@/components/ContactCta.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang }: Props = Astro.props;
+
+const entries = await getCollection("services");
+const entry = entries.find((e) => e.id === lang);
+if (!entry) {
+  throw new Error(`Missing services entry for lang "${lang}"`);
+}
+const data = entry.data;
+---
+
+<article class="services-page">
+  <header class="page-header">
+    <p class="prompt"><span class="accent">$</span> ls ./services/</p>
+    <h1>{data.page.title}</h1>
+    <p class="intro">{data.page.intro}</p>
+  </header>
+
+  <div class="grid">
+    {data.services.map((s) => (
+      <ServiceCard
+        slug={s.slug}
+        title={s.title}
+        pitch={s.pitch}
+        bullets={s.bullets}
+        detailsLabel={t(lang, "services.detailsTitle")}
+      />
+    ))}
+  </div>
+
+  <ContactCta lang={lang} />
+</article>
+
+<style>
+  .page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header .prompt {
+    font-size: 0.9rem;
+    margin: 0 0 0.4rem;
+  }
+
+  .intro {
+    color: var(--fg-mute);
+    font-size: 1.05rem;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

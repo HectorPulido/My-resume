@@ -1,0 +1,71 @@
+---
+import "@/styles/global.css";
+import type { Lang, PageKey } from "@/i18n/ui";
+import { pageHref, otherLangHref, t } from "@/i18n/ui";
+import TerminalHeader from "@/components/TerminalHeader.astro";
+import Footer from "@/components/Footer.astro";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  /** Identifier of the current page used to compute the language-alternate URL. */
+  pageKey: PageKey;
+  /** Optional path suffix (e.g. blog post slug + trailing slash) appended to the route base. */
+  pageSuffix?: string;
+  /** Optional class for <main>. */
+  mainClass?: string;
+}
+
+const {
+  lang,
+  title,
+  description,
+  pageKey,
+  pageSuffix = "",
+  mainClass,
+}: Props = Astro.props;
+
+const siteTitle = t(lang, "meta.siteTitle");
+const fullTitle = title ? `${title} · ${siteTitle}` : siteTitle;
+const metaDesc = description ?? t(lang, "meta.siteDescription");
+
+const site = Astro.site ?? new URL("https://hectorpulido.net");
+const canonicalPath = pageHref(pageKey, lang, pageSuffix);
+const canonical = new URL(canonicalPath, site).toString();
+const altPath = otherLangHref(lang, pageKey, pageSuffix);
+const altLang: Lang = lang === "es" ? "en" : "es";
+const altHref = new URL(altPath, site).toString();
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#093434" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDesc} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={lang} href={canonical} />
+    <link rel="alternate" hreflang={altLang} href={altHref} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDesc} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="/og.png" />
+    <meta property="og:locale" content={lang === "es" ? "es_ES" : "en_US"} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <a href="#main" class="sr-only">Skip to content</a>
+    <TerminalHeader lang={lang} altLangHref={altPath} />
+    <main id="main" class={mainClass}>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

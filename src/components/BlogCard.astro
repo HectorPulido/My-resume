@@ -1,0 +1,72 @@
+---
+import type { Lang } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+  href: string;
+  title: string;
+  description: string;
+  date: Date;
+  tags?: string[];
+}
+
+const { lang, href, title, description, date, tags = [] }: Props = Astro.props;
+const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-ES" : "en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<article class="blog-card">
+  <a class="card-link" href={href}>
+    <p class="card-meta">
+      <time datetime={date.toISOString()}>{fmt.format(date)}</time>
+      {tags.length > 0 && <span class="tags">· {tags.join(", ")}</span>}
+    </p>
+    <h3>{title}</h3>
+    <p class="desc">{description}</p>
+  </a>
+</article>
+
+<style>
+  .blog-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .blog-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .card-link {
+    display: block;
+    padding: 1.2rem 1.4rem;
+    color: var(--fg);
+  }
+
+  .card-link:hover {
+    text-decoration: none;
+  }
+
+  .card-meta {
+    font-family: var(--font-mono);
+    color: var(--fg-mute);
+    font-size: 0.85rem;
+    margin: 0 0 0.4rem;
+  }
+
+  .blog-card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.2rem;
+    color: var(--fg);
+  }
+
+  .desc {
+    margin: 0;
+    color: var(--fg-mute);
+  }
+</style>

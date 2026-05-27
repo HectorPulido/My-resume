@@ -1,0 +1,85 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { Lang } from "@/i18n/ui";
+import { t, pageHref } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  date: Date;
+  slug: string;
+  readingMinutes?: number;
+}
+
+const { lang, title, description, date, slug, readingMinutes }: Props = Astro.props;
+
+const formatter = new Intl.DateTimeFormat(lang === "es" ? "es-ES" : "en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const dateLabel = formatter.format(date);
+const blogIndex = pageHref("blog", lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={description}
+  pageKey="blogPost"
+  pageSuffix={`${slug}/`}
+>
+  <article class="post">
+    <header class="post-header">
+      <p class="post-meta">
+        <time datetime={date.toISOString()}>{dateLabel}</time>
+        {readingMinutes && <span> · {readingMinutes} {t(lang, "blog.readingTime")}</span>}
+      </p>
+      <h1>{title}</h1>
+      <p class="post-desc">{description}</p>
+    </header>
+
+    <div class="post-body">
+      <slot />
+    </div>
+
+    <p class="back"><a href={blogIndex}>← {t(lang, "blog.backToList")}</a></p>
+  </article>
+</BaseLayout>
+
+<style>
+  .post-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+  }
+
+  .post-meta {
+    font-family: var(--font-mono);
+    color: var(--fg-mute);
+    font-size: 0.92rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .post-desc {
+    color: var(--fg-mute);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .post-body :global(h2) {
+    margin-top: 2.2em;
+  }
+
+  .post-body :global(img) {
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .back {
+    margin-top: 3rem;
+    font-family: var(--font-mono);
+  }
+</style>

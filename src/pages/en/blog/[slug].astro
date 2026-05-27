@@ -1,0 +1,29 @@
+---
+import PostLayout from "@/layouts/PostLayout.astro";
+import { getPostsFor, slugOf } from "@/lib/hasBlogPosts";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getPostsFor("en");
+  return posts.map((post) => ({
+    params: { slug: slugOf(post) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+const readingMinutes = remarkPluginFrontmatter?.minutesRead as number | undefined;
+const slug = slugOf(post);
+---
+
+<PostLayout
+  lang="en"
+  title={post.data.title}
+  description={post.data.description}
+  date={post.data.date}
+  slug={slug}
+  readingMinutes={readingMinutes}
+>
+  <Content />
+</PostLayout>

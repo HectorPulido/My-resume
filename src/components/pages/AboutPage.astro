@@ -1,0 +1,48 @@
+---
+import type { Lang } from "@/i18n/ui";
+import { getCollection, render } from "astro:content";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang }: Props = Astro.props;
+
+const entries = await getCollection("about");
+const entry = entries.find((e) => e.id === lang);
+if (!entry) {
+  throw new Error(`Missing about entry for lang "${lang}"`);
+}
+const { Content } = await render(entry);
+---
+
+<article class="about-page">
+  <header class="about-header">
+    <p class="prompt"><span class="accent">$</span> cat ./about.md</p>
+    <h1>{entry.data.title}</h1>
+    <p class="tagline">{entry.data.tagline}</p>
+  </header>
+  <div class="about-body">
+    <Content />
+  </div>
+</article>
+
+<style>
+  .about-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-header .prompt {
+    font-size: 0.9rem;
+    margin: 0 0 0.4rem;
+  }
+
+  .tagline {
+    color: var(--fg-mute);
+    font-size: 1.05rem;
+    max-width: 60ch;
+    margin: 0;
+  }
+</style>

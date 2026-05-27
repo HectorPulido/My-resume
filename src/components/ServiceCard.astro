@@ -1,0 +1,87 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  pitch: string;
+  bullets: string[];
+  detailsLabel: string;
+}
+
+const { slug, title, pitch, bullets, detailsLabel }: Props = Astro.props;
+---
+
+<article class="service-card" id={slug}>
+  <header>
+    <p class="prompt"><span class="accent">$</span> ./{slug}</p>
+    <h3>{title}</h3>
+  </header>
+  <p class="pitch">{pitch}</p>
+  <details>
+    <summary>{detailsLabel}</summary>
+    <ul>
+      {bullets.map((b) => <li>{b}</li>)}
+    </ul>
+  </details>
+</article>
+
+<style>
+  .service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .service-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .service-card h3 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .service-card .prompt {
+    margin: 0 0 0.3rem;
+    font-size: 0.92rem;
+  }
+
+  .pitch {
+    color: var(--fg);
+    margin: 0;
+  }
+
+  details {
+    margin-top: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    color: var(--fg-mute);
+  }
+
+  details summary {
+    cursor: pointer;
+    color: var(--accent);
+    list-style: none;
+    padding: 0.4rem 0;
+  }
+
+  details summary::before {
+    content: "+ ";
+  }
+
+  details[open] summary::before {
+    content: "- ";
+  }
+
+  details ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.2rem;
+    font-family: var(--font-sans);
+    color: var(--fg);
+  }
+</style>

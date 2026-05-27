@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    image: hectorpulido-net:latest
+    container_name: hectorpulido-net
+    restart: unless-stopped
+    ports:
+      - "8080:80"

@@ -1,0 +1,164 @@
+---
+import type { Lang } from "@/i18n/ui";
+import { pageHref, t } from "@/i18n/ui";
+import LangSwitcher from "@/components/LangSwitcher.astro";
+import { hasPostsFor } from "@/lib/hasBlogPosts";
+
+interface Props {
+  lang: Lang;
+  /** Pre-computed href for the equivalent page in the other language. */
+  altLangHref: string;
+}
+
+const { lang, altLangHref }: Props = Astro.props;
+
+const showBlog = await hasPostsFor(lang);
+
+const homeHref = pageHref("home", lang);
+const aboutHref = pageHref("about", lang);
+const servicesHref = pageHref("services", lang);
+const blogHref = pageHref("blog", lang);
+---
+
+<header class="terminal-header">
+  <div class="header-inner">
+    <a class="brand" href={homeHref} aria-label="Hector Pulido home">
+      <span class="brand-prompt">&gt;</span>
+      <span class="brand-name">hector_pulido</span>
+    </a>
+
+    <input id="nav-toggle" type="checkbox" class="nav-toggle" aria-hidden="true" />
+    <label for="nav-toggle" class="nav-burger" aria-label={t(lang, "nav.menu")}>
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <nav class="nav" aria-label="primary">
+      <a href={aboutHref}>{t(lang, "nav.about")}</a>
+      <a href={servicesHref}>{t(lang, "nav.services")}</a>
+      {showBlog && <a href={blogHref}>{t(lang, "nav.blog")}</a>}
+      <span class="nav-sep" aria-hidden="true">·</span>
+      <LangSwitcher lang={lang} href={altLangHref} />
+    </nav>
+  </div>
+</header>
+
+<style>
+  .terminal-header {
+    border-bottom: 1px solid var(--border);
+    background: rgba(9, 52, 52, 0.85);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .header-inner {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 14px clamp(16px, 4vw, 32px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--fg);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4ch;
+    font-size: 1rem;
+  }
+
+  .brand:hover { text-decoration: none; }
+
+  .brand-prompt { color: var(--accent); }
+  .brand-name { color: var(--fg); }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+  }
+
+  .nav a {
+    color: var(--fg-mute);
+    transition: color 0.15s ease;
+  }
+
+  .nav a:hover,
+  .nav a:focus-visible {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-sep {
+    color: var(--border);
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-burger {
+    display: none;
+    cursor: pointer;
+    width: 32px;
+    height: 28px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4px 0;
+  }
+
+  .nav-burger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--fg);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  @media (max-width: 720px) {
+    .nav-burger {
+      display: flex;
+    }
+
+    .nav {
+      order: 3;
+      flex-basis: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 12px 4px 4px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+
+    .nav-sep { display: none; }
+
+    .nav-toggle:checked ~ .nav {
+      max-height: 320px;
+    }
+
+    .nav-toggle:checked ~ .nav-burger span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .nav-toggle:checked ~ .nav-burger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle:checked ~ .nav-burger span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+</style>

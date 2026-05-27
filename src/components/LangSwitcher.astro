@@ -1,0 +1,38 @@
+---
+import type { Lang } from "@/i18n/ui";
+import { t } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+  /** Pre-computed href for the same page in the other language. */
+  href: string;
+}
+
+const { lang, href }: Props = Astro.props;
+
+const target: Lang = lang === "es" ? "en" : "es";
+const label = target === "es" ? "ES" : "EN";
+const fullLabel = target === "es" ? "Español" : "English";
+---
+
+<a class="lang-switcher" href={href} hreflang={target} aria-label={`${t(lang, "lang.label")}: ${fullLabel}`}>
+  <span aria-hidden="true">[{label}]</span>
+</a>
+
+<style>
+  .lang-switcher {
+    font-family: var(--font-mono);
+    color: var(--fg-mute);
+    font-weight: 500;
+    padding: 0.3em 0.5em;
+    border-radius: 4px;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .lang-switcher:hover,
+  .lang-switcher:focus-visible {
+    color: var(--accent);
+    background: var(--accent-soft);
+    text-decoration: none;
+  }
+</style>

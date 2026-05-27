@@ -1,0 +1,26 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { t } from "@/i18n/ui";
+
+const lang = "es" as const;
+---
+
+<BaseLayout lang={lang} title={t(lang, "404.title")} pageKey="notFound">
+  <section class="error">
+    <p class="prompt"><span class="accent">$</span> cat ./route</p>
+    <h1>{t(lang, "404.title")}</h1>
+    <p>{t(lang, "404.body")}</p>
+    <p><a class="button" href="/">{t(lang, "404.cta")} →</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .error {
+    padding: 2rem 0;
+  }
+
+  .error .prompt {
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+  }
+</style>

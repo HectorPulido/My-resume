@@ -1,0 +1,9 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServicesPage from "@/components/pages/ServicesPage.astro";
+import { t } from "@/i18n/ui";
+---
+
+<BaseLayout lang="en" title={t("en", "home.servicesTitle")} pageKey="services">
+  <ServicesPage lang="en" />
+</BaseLayout>

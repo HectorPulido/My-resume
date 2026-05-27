@@ -1,0 +1,9 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BlogIndexPage from "@/components/pages/BlogIndexPage.astro";
+import { t } from "@/i18n/ui";
+---
+
+<BaseLayout lang="en" title={t("en", "home.blogTitle")} pageKey="blog">
+  <BlogIndexPage lang="en" />
+</BaseLayout>

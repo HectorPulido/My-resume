@@ -1,0 +1,94 @@
+{
+  "es": {
+    "page": {
+      "title": "Proyectos open source",
+      "intro": "Lo que construyo cuando nadie me lo pide. Todo público en GitHub.",
+      "ctaLabel": "Ver más en GitHub"
+    },
+    "projects": [
+      {
+        "slug": "mavis",
+        "name": "MAVIS",
+        "pitch": "Sistema multimodal end-to-end que predice si un video va a funcionar en TU canal y recupera los más parecidos a una idea nueva. Embeddings de texto e imagen, retrieval híbrido, métricas con validación seria.",
+        "highlight": "AUC per-channel 0.762 · 42K videos · 844 canales · dockerizado",
+        "tags": ["multimodal", "Python", "XGBoost", "SigLIP-2", "mpnet", "Docker"],
+        "url": "https://github.com/HectorPulido/MAVIS-Youtube-Video-Optimizer",
+        "featured": true
+      },
+      {
+        "slug": "ml-framework-csharp",
+        "name": "Machine Learning Framework en C#",
+        "pitch": "Framework tipo PyTorch hecho desde cero en C#. Sistema de autograd dinámico para construir y entrenar redes neuronales sin depender de ninguna librería de ML.",
+        "tags": ["C#", "autograd", "deep learning"],
+        "url": "https://github.com/HectorPulido/Machine-learning-Framework-Csharp"
+      },
+      {
+        "slug": "evolutionary-nn-unity",
+        "name": "Evolutionary Neural Networks en Unity",
+        "pitch": "Redes neuronales entrenadas con algoritmos genéticos para crear bots autónomos en videojuegos. ML clásico aplicado, sin gradient descent.",
+        "tags": ["C#", "Unity", "neural nets", "genetic algorithms"],
+        "url": "https://github.com/HectorPulido/Evolutionary-Neural-Networks-on-unity-for-bots"
+      },
+      {
+        "slug": "discord-bot-llama",
+        "name": "Discord bot con LLaMA",
+        "pitch": "Bot de Discord con LLM local. Demuestra el ciclo completo de aplicar un LLM open source a un caso de uso real sin depender de APIs de pago.",
+        "tags": ["Python", "LLaMA", "Discord", "LLM applied"],
+        "url": "https://github.com/HectorPulido/discord-bot-LLama"
+      },
+      {
+        "slug": "pequeroku",
+        "name": "Pequeroku",
+        "pitch": "Plataforma ligera de contenedores basada en QEMU para entornos aislados. Sistemas, infra y arquitectura, no IA.",
+        "tags": ["systems", "QEMU", "Python"],
+        "url": "https://github.com/HectorPulido/pequeroku"
+      }
+    ]
+  },
+  "en": {
+    "page": {
+      "title": "Open source projects",
+      "intro": "What I build when nobody asks me to. All public on GitHub.",
+      "ctaLabel": "See more on GitHub"
+    },
+    "projects": [
+      {
+        "slug": "mavis",
+        "name": "MAVIS",
+        "pitch": "End-to-end multimodal system that predicts whether a video will perform on YOUR channel and retrieves the closest existing videos to a new idea. Text and image embeddings, hybrid retrieval, metrics with proper validation.",
+        "highlight": "Per-channel AUC 0.762 · 42K videos · 844 channels · dockerized",
+        "tags": ["multimodal", "Python", "XGBoost", "SigLIP-2", "mpnet", "Docker"],
+        "url": "https://github.com/HectorPulido/MAVIS-Youtube-Video-Optimizer",
+        "featured": true
+      },
+      {
+        "slug": "ml-framework-csharp",
+        "name": "Machine Learning Framework in C#",
+        "pitch": "PyTorch-style framework built from scratch in C#. Dynamic autograd engine to build and train neural networks without depending on any ML library.",
+        "tags": ["C#", "autograd", "deep learning"],
+        "url": "https://github.com/HectorPulido/Machine-learning-Framework-Csharp"
+      },
+      {
+        "slug": "evolutionary-nn-unity",
+        "name": "Evolutionary Neural Networks in Unity",
+        "pitch": "Neural networks trained with genetic algorithms to create autonomous bots in video games. Applied classical ML, no gradient descent.",
+        "tags": ["C#", "Unity", "neural nets", "genetic algorithms"],
+        "url": "https://github.com/HectorPulido/Evolutionary-Neural-Networks-on-unity-for-bots"
+      },
+      {
+        "slug": "discord-bot-llama",
+        "name": "Discord bot with LLaMA",
+        "pitch": "Discord bot powered by a local LLM. Shows the full cycle of applying an open-source LLM to a real use case without depending on paid APIs.",
+        "tags": ["Python", "LLaMA", "Discord", "LLM applied"],
+        "url": "https://github.com/HectorPulido/discord-bot-LLama"
+      },
+      {
+        "slug": "pequeroku",
+        "name": "Pequeroku",
+        "pitch": "Lightweight container platform based on QEMU for isolated environments. Systems, infra and architecture, not AI.",
+        "tags": ["systems", "QEMU", "Python"],
+        "url": "https://github.com/HectorPulido/pequeroku"
+      }
+    ]
+  }
+}

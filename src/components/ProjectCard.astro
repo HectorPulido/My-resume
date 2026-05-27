@@ -1,0 +1,111 @@
+---
+interface Props {
+  name: string;
+  pitch: string;
+  highlight?: string;
+  tags: string[];
+  url: string;
+  featured?: boolean;
+}
+
+const { name, pitch, highlight, tags, url, featured = false }: Props = Astro.props;
+---
+
+<article class:list={["project-card", featured && "featured"]}>
+  <a class="card-link" href={url} target="_blank" rel="noopener">
+    <header>
+      <p class="prompt"><span class="accent">$</span> git open</p>
+      <h3>{name}</h3>
+    </header>
+    <p class="pitch">{pitch}</p>
+    {highlight && (
+      <p class="highlight"><span aria-hidden="true">→</span> {highlight}</p>
+    )}
+    <ul class="tags" aria-label="tech stack">
+      {tags.map((t) => <li>{t}</li>)}
+    </ul>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .card-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.4rem;
+    color: var(--fg);
+    height: 100%;
+  }
+
+  .card-link:hover {
+    text-decoration: none;
+  }
+
+  .project-card .prompt {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--fg-mute);
+  }
+
+  .project-card h3 {
+    margin: 0.2rem 0 0;
+    font-size: 1.15rem;
+    color: var(--fg);
+  }
+
+  .featured h3 {
+    font-size: 1.4rem;
+  }
+
+  .pitch {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  .highlight {
+    margin: 0;
+    padding: 0.5rem 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-left: 2px solid var(--accent);
+    border-radius: 4px;
+  }
+
+  .tags {
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
+    font-size: 0;
+  }
+
+  .tags li {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.4rem 0.4rem 0;
+    height: 1.75rem;
+    line-height: 1.75rem;
+    padding: 0 0.6rem;
+    box-sizing: border-box;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--fg-mute);
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+</style>

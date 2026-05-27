@@ -1,0 +1,126 @@
+---
+import type { Lang } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+  url: string;
+  title: string;
+  thumbnail: string;
+  published: Date;
+}
+
+const { lang, url, title, thumbnail, published }: Props = Astro.props;
+
+const fmt = new Intl.DateTimeFormat(lang === "es" ? "es-ES" : "en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<article class="video-card">
+  <a class="video-link" href={url} target="_blank" rel="noopener" aria-label={title}>
+    <div class="thumb">
+      <img src={thumbnail} alt="" loading="lazy" width="480" height="360" />
+      <span class="play" aria-hidden="true">▶</span>
+    </div>
+    <div class="body">
+      <h3>{title}</h3>
+      <p class="meta">
+        <time datetime={published.toISOString()}>{fmt.format(published)}</time>
+        <span class="dot" aria-hidden="true">·</span>
+        <span>YouTube</span>
+      </p>
+    </div>
+  </a>
+</article>
+
+<style>
+  .video-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    overflow: hidden;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .video-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .video-link {
+    display: flex;
+    flex-direction: column;
+    color: var(--fg);
+    height: 100%;
+  }
+
+  .video-link:hover {
+    text-decoration: none;
+  }
+
+  .thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-elev);
+    overflow: hidden;
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .video-card:hover .thumb img {
+    transform: scale(1.04);
+  }
+
+  .play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 2.4rem;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+    opacity: 0.85;
+    transition: opacity 0.15s ease;
+  }
+
+  .video-card:hover .play {
+    opacity: 1;
+  }
+
+  .body {
+    padding: 1rem 1.1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .body h3 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.35;
+    color: var(--fg);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .meta {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--fg-mute);
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+</style>

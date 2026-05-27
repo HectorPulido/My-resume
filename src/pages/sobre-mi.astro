@@ -1,0 +1,9 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import AboutPage from "@/components/pages/AboutPage.astro";
+import { t } from "@/i18n/ui";
+---
+
+<BaseLayout lang="es" title={t("es", "home.aboutTitle")} pageKey="about">
+  <AboutPage lang="es" />
+</BaseLayout>

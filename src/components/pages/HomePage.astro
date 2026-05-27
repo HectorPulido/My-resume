@@ -1,0 +1,213 @@
+---
+import type { Lang } from "@/i18n/ui";
+import { localizedPath, t } from "@/i18n/ui";
+import { getCollection } from "astro:content";
+import { getPostsFor, slugOf } from "@/lib/hasBlogPosts";
+import { getLatestVideos, channelUrl } from "@/lib/youtube";
+import ServiceCard from "@/components/ServiceCard.astro";
+import BlogCard from "@/components/BlogCard.astro";
+import VideoCard from "@/components/VideoCard.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import ContactCta from "@/components/ContactCta.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang }: Props = Astro.props;
+
+const aboutEntries = await getCollection("about");
+const aboutEntry = aboutEntries.find((e) => e.id === lang || e.id === `${lang}.md` || e.id.endsWith(`/${lang}`));
+
+const servicesEntries = await getCollection("services");
+const servicesEntry = servicesEntries.find((e) => e.id === lang);
+const allServices = servicesEntry?.data;
+
+const projectsEntries = await getCollection("projects");
+const projectsEntry = projectsEntries.find((e) => e.id === lang);
+const allProjects = projectsEntry?.data.projects ?? [];
+
+const recentPosts = (await getPostsFor(lang)).slice(0, 3);
+const showBlog = recentPosts.length > 0;
+
+const recentVideos = await getLatestVideos(3);
+const showVideos = recentVideos.length > 0;
+
+const aboutHref = localizedPath(lang, lang === "es" ? "/sobre-mi/" : "/about/");
+const servicesHref = localizedPath(lang, lang === "es" ? "/servicios/" : "/services/");
+const blogHref = localizedPath(lang, "/blog/");
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <pre class="hero-block" aria-hidden="true"><span class="prompt accent">$</span> whoami
+&gt; hector_pulido
+<span class="prompt accent">$</span> ./since
+&rarr; {t(lang, "hero.since")}
+<span class="prompt accent">$</span> ./mission
+&rarr; {t(lang, "hero.mission")}<span class="cursor" aria-hidden="true"></span></pre>
+
+  <h1 id="hero-title" class="sr-only">Hector Pulido</h1>
+
+  <p class="hero-tagline">{aboutEntry?.data.tagline ?? t(lang, "meta.siteDescription")}</p>
+
+  <p class="hero-ctas">
+    <a class="button" href="mailto:hello@hectorpulido.net">{t(lang, "hero.cta")} →</a>
+    <a class="button ghost" href={aboutHref}>{t(lang, "home.aboutTitle")}</a>
+  </p>
+</section>
+
+<section class="section" aria-labelledby="services-title">
+  <h2 id="services-title">{t(lang, "home.servicesTitle")}</h2>
+  <p class="section-intro">{t(lang, "home.servicesIntro")}</p>
+
+  {allServices && (
+    <div class="grid services">
+      {allServices.services.slice(0, 4).map((s) => (
+        <ServiceCard
+          slug={s.slug}
+          title={s.title}
+          pitch={s.pitch}
+          bullets={s.bullets}
+          detailsLabel={t(lang, "services.detailsTitle")}
+        />
+      ))}
+    </div>
+  )}
+
+  <p class="more"><a href={servicesHref}>{t(lang, "home.servicesCta")} →</a></p>
+</section>
+
+{allProjects.length > 0 && (
+  <section class="section" aria-labelledby="projects-title">
+    <h2 id="projects-title">{t(lang, "home.projectsTitle")}</h2>
+    <p class="section-intro">{t(lang, "home.projectsIntro")}</p>
+    <div class="grid projects">
+      {allProjects.map((p) => (
+        <ProjectCard
+          name={p.name}
+          pitch={p.pitch}
+          highlight={p.highlight}
+          tags={p.tags}
+          url={p.url}
+          featured={p.featured}
+        />
+      ))}
+    </div>
+    <p class="more"><a href="https://github.com/HectorPulido" target="_blank" rel="noopener">{t(lang, "home.projectsCta")} →</a></p>
+  </section>
+)}
+
+{showVideos && (
+  <section class="section" aria-labelledby="videos-title">
+    <h2 id="videos-title">{t(lang, "home.videosTitle")}</h2>
+    <p class="section-intro">{t(lang, "home.videosIntro")}</p>
+    <div class="grid videos">
+      {recentVideos.map((v) => (
+        <VideoCard
+          lang={lang}
+          url={v.url}
+          title={v.title}
+          thumbnail={v.thumbnail}
+          published={v.published}
+        />
+      ))}
+    </div>
+    <p class="more"><a href={channelUrl} target="_blank" rel="noopener">{t(lang, "home.videosCta")} →</a></p>
+  </section>
+)}
+
+{showBlog && (
+  <section class="section" aria-labelledby="blog-title">
+    <h2 id="blog-title">{t(lang, "home.blogTitle")}</h2>
+    <div class="grid posts">
+      {recentPosts.map((p) => (
+        <BlogCard
+          lang={lang}
+          href={localizedPath(lang, `/blog/${slugOf(p)}/`)}
+          title={p.data.title}
+          description={p.data.description}
+          date={p.data.date}
+          tags={p.data.tags}
+        />
+      ))}
+    </div>
+    <p class="more"><a href={blogHref}>{t(lang, "home.blogCta")} →</a></p>
+  </section>
+)}
+
+<ContactCta lang={lang} />
+
+<style>
+  .hero {
+    margin: 1rem 0 3rem;
+  }
+
+  .hero-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.6rem;
+    color: var(--fg);
+    font-size: clamp(0.95rem, 1.2vw + 0.6rem, 1.1rem);
+    white-space: pre-wrap;
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1.05rem, 1vw + 0.8rem, 1.3rem);
+    color: var(--fg);
+    margin: 0 0 1.5rem;
+    max-width: 60ch;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 0;
+  }
+
+  .section {
+    margin-top: 3.5rem;
+  }
+
+  .section-intro {
+    color: var(--fg-mute);
+    margin: 0 0 1.5rem;
+    max-width: 60ch;
+  }
+
+  .grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .grid.services,
+    .grid.posts {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 720px) {
+    .grid.videos {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 640px) {
+    .grid.projects {
+      grid-template-columns: 1fr 1fr;
+    }
+    .grid.projects > :global(.featured) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .more {
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+  }
+</style>

@@ -1,0 +1,110 @@
+{
+  "es": {
+    "page": {
+      "title": "Servicios",
+      "intro": "Llevo años con IA aplicada, desde mucho antes de ChatGPT. Eso significa decisiones por números, no por hype. Si tu problema se resuelve con una regresión, te lo digo. Si necesitas un agente, lo entrego en producción listo para escalar y con el coste bajo control.",
+      "ctaLabel": "Hablemos"
+    },
+    "services": [
+      {
+        "slug": "ai-agents",
+        "title": "Consultoría en agentes de IA",
+        "pitch": "Decido contigo si tu problema pide un agente, un modelo fine-tuneado, un clasificador clásico o nada nuevo. Y lo llevo a producción con métricas duras pegadas a P&L.",
+        "bullets": [
+          "Elección de arquitectura por datos: cuándo agente, cuándo retrieval, cuándo un modelo más pequeño, cuándo solo reglas.",
+          "POC funcional en pocas semanas. Calidad de código y documentación listas para que tu equipo (actual o el siguiente) lo lleve a producto sin perder contexto.",
+          "Coste por respuesta como métrica de primer nivel: caching, batching, routing entre modelos y prompts auditados.",
+          "Pipeline de evaluación cuantitativa con datasets propios para iterar por resultados, no por intuición.",
+          "Guardarrieles, tooling, memoria y observabilidad pensados para soportar tráfico real."
+        ]
+      },
+      {
+        "slug": "mentoring",
+        "title": "Mentoría técnica 1:1 y equipos",
+        "pitch": "Mentoría para ingenieros y líderes técnicos que quieren shippar IA real, no demos. Founding member de equipos de IA y más de 50.000 estudiantes formados.",
+        "bullets": [
+          "Sesiones recurrentes con objetivos medibles y entregables concretos por sprint.",
+          "Reviews de código y de arquitectura de soluciones de IA, no clases teóricas.",
+          "Coaching de carrera para senior engineers y tech leads que quieren liderar iniciativas de IA.",
+          "Programas in-house para equipos que necesitan subir de nivel rápido en IA aplicada y arquitectura."
+        ]
+      },
+      {
+        "slug": "digital-transformation",
+        "title": "Transformación digital con IA",
+        "pitch": "Adopción de IA con criterio. Mapeo casos de uso por ROI real, no por lo que está trending en LinkedIn esta semana.",
+        "bullets": [
+          "Auditoría de oportunidades: qué casos justifican IA generativa, cuáles piden analítica clásica, cuáles no necesitan nada nuevo.",
+          "Roadmap priorizado por impacto en P&L con hitos medibles, presupuesto realista y forma del equipo necesario.",
+          "Apoyo hands-on con tu equipo para entregar el primer producto en semanas y no quedarse en POC eterno.",
+          "Plan de gobernanza, seguridad y métricas para que la adopción sobreviva al primer cambio de stack o de modelo."
+        ]
+      },
+      {
+        "slug": "platform-architecture",
+        "title": "Arquitectura de plataformas web",
+        "pitch": "Reviso y rediseño tu plataforma para que escale, sea barata de operar y soporte iteración rápida. Con experiencia llevando productos a más de 5 millones de usuarios.",
+        "bullets": [
+          "Auditoría de latencia, coste de infraestructura y deuda técnica con plan de acción priorizado por impacto.",
+          "Decisiones de stack defendibles: Python, Rust, Cloudflare Workers, AWS, bases vectoriales solo cuando aportan.",
+          "Diseño de microservicios, colas, search y data layer que aguantan crecimiento sin reescribirse cada año.",
+          "Refactor de servicios calientes en producción sin parar la iteración del producto."
+        ]
+      }
+    ]
+  },
+  "en": {
+    "page": {
+      "title": "Services",
+      "intro": "I've been doing applied AI for years, long before ChatGPT. That means decisions backed by numbers, not hype. If your problem is solved by a regression, I'll tell you. If you need an agent, I'll ship it to production ready to scale and with cost under control.",
+      "ctaLabel": "Let's talk"
+    },
+    "services": [
+      {
+        "slug": "ai-agents",
+        "title": "AI agents consulting",
+        "pitch": "We decide together whether your problem needs an agent, a fine-tuned model, a classical classifier or nothing new. Then I take it to production with hard metrics tied to P&L.",
+        "bullets": [
+          "Architecture choices driven by data: when an agent, when retrieval, when a smaller model, when just rules.",
+          "Working POC in a few weeks. Code quality and documentation ready for your team (current or next) to take it to product without losing context.",
+          "Per-response cost treated as a first-class metric: caching, batching, model routing, audited prompts.",
+          "Quantitative evaluation pipelines on your own datasets so you iterate on outcomes, not intuition.",
+          "Guardrails, tooling, memory and observability built for real traffic."
+        ]
+      },
+      {
+        "slug": "mentoring",
+        "title": "1:1 and team technical mentoring",
+        "pitch": "Mentoring for engineers and tech leads who want to ship real AI, not demos. Founding member of AI teams and 50,000+ students trained.",
+        "bullets": [
+          "Recurring sessions with measurable goals and concrete deliverables per sprint.",
+          "Code and AI architecture reviews, not theoretical classes.",
+          "Career coaching for senior engineers and tech leads moving into AI leadership.",
+          "In-house programs for teams that need to level up fast in applied AI and architecture."
+        ]
+      },
+      {
+        "slug": "digital-transformation",
+        "title": "AI-driven digital transformation",
+        "pitch": "AI adoption with judgment. I map use cases by real ROI, not by what's trending on LinkedIn this week.",
+        "bullets": [
+          "Opportunity audit: which cases justify generative AI, which need classical analytics, which need nothing new.",
+          "Roadmap prioritized by P&L impact, with measurable milestones, realistic budget and team shape.",
+          "Hands-on work with your team to ship the first product in weeks instead of camping in POC forever.",
+          "Governance, security and metrics plan so the adoption survives the next stack or model swap."
+        ]
+      },
+      {
+        "slug": "platform-architecture",
+        "title": "Web platform architecture",
+        "pitch": "I review and redesign your platform so it scales, is cheap to operate and supports fast iteration. With experience taking products past 5 million users.",
+        "bullets": [
+          "Latency, infrastructure cost and tech-debt audit with an action plan prioritized by impact.",
+          "Defensible stack decisions: Python, Rust, Cloudflare Workers, AWS, vector databases only when they pay back.",
+          "Microservices, queues, search and data layer designed to take growth without yearly rewrites.",
+          "Refactor of hot services in production without stopping product iteration."
+        ]
+      }
+    ]
+  }
+}

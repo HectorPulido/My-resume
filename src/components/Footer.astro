@@ -1,0 +1,99 @@
+---
+import type { Lang } from "@/i18n/ui";
+import { t } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang }: Props = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="col">
+      <p class="tagline"><span class="prompt accent">$</span> {t(lang, "footer.tagline")}</p>
+      <p class="copy">© {year} {t(lang, "footer.copy")}</p>
+    </div>
+
+    <div class="col">
+      <h4>{t(lang, "footer.contact")}</h4>
+      <ul class="links">
+        <li><a href="mailto:hello@hectorpulido.net">hello@hectorpulido.net</a></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <h4>{t(lang, "footer.elsewhere")}</h4>
+      <ul class="links">
+        <li><a href="https://github.com/HectorPulido" rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/hector-pulido-17547369/" rel="me noopener" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.youtube.com/@Hector.Pulido" rel="me noopener" target="_blank">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg-elev);
+    margin-top: 4rem;
+  }
+
+  .footer-inner {
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    padding: 2.5rem clamp(16px, 4vw, 32px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer-inner {
+      grid-template-columns: 1.4fr 1fr 1fr;
+    }
+  }
+
+  .col h4 {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fg-mute);
+    margin: 0 0 0.8rem;
+  }
+
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+  }
+
+  .links a {
+    color: var(--fg);
+  }
+
+  .links a:hover {
+    color: var(--accent);
+  }
+
+  .tagline {
+    font-family: var(--font-mono);
+    color: var(--fg);
+    margin: 0 0 0.5rem;
+  }
+
+  .copy {
+    color: var(--fg-mute);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+</style>

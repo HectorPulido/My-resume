@@ -1,0 +1,65 @@
+---
+import type { Lang } from "@/i18n/ui";
+import { localizedPath, t } from "@/i18n/ui";
+import { getPostsFor, slugOf } from "@/lib/hasBlogPosts";
+import BlogCard from "@/components/BlogCard.astro";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang }: Props = Astro.props;
+const posts = await getPostsFor(lang);
+---
+
+<article class="blog-index">
+  <header class="page-header">
+    <p class="prompt"><span class="accent">$</span> ls ./blog/</p>
+    <h1>{t(lang, "home.blogTitle")}</h1>
+  </header>
+
+  {posts.length === 0 ? (
+    <p class="empty">{t(lang, "blog.empty")}</p>
+  ) : (
+    <div class="list">
+      {posts.map((p) => (
+        <BlogCard
+          lang={lang}
+          href={localizedPath(lang, `/blog/${slugOf(p)}/`)}
+          title={p.data.title}
+          description={p.data.description}
+          date={p.data.date}
+          tags={p.data.tags}
+        />
+      ))}
+    </div>
+  )}
+</article>
+
+<style>
+  .page-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header .prompt {
+    font-size: 0.9rem;
+    margin: 0 0 0.4rem;
+  }
+
+  .empty {
+    font-family: var(--font-mono);
+    color: var(--fg-mute);
+    padding: 2rem;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+  }
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+</style>

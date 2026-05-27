@@ -1,0 +1,46 @@
+---
+import type { Lang } from "@/i18n/ui";
+import { t } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang }: Props = Astro.props;
+---
+
+<aside class="contact-cta">
+  <p class="prompt"><span class="accent">$</span> ./contact --book</p>
+  <h2>{t(lang, "services.contactTitle")}</h2>
+  <p>{t(lang, "services.contactBody")}</p>
+  <p><a class="button" href="mailto:hello@hectorpulido.net">{t(lang, "services.contactCta")} →</a></p>
+</aside>
+
+<style>
+  .contact-cta {
+    margin-top: 3rem;
+    padding: 1.8rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+  }
+
+  .contact-cta .prompt {
+    font-family: var(--font-mono);
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+    color: var(--fg-mute);
+  }
+
+  .contact-cta h2 {
+    margin-top: 0;
+  }
+
+  .contact-cta p {
+    margin-bottom: 0.8rem;
+  }
+
+  .contact-cta p:last-child {
+    margin-bottom: 0;
+  }
+</style>
